@@ -324,9 +324,6 @@ function! delimitMate#SkipDelim(char) "{{{
   if pre == "\\"
     " Escaped character
     return a:char
-  elseif cur == a:char
-    " Exit pair
-    return a:char . "\<Del>"
   elseif delimitMate#IsEmptyPair( pre . a:char )
     " Add closing delimiter and jump back to the middle.
     return a:char . s:joinUndo() . "\<Left>"
@@ -377,9 +374,6 @@ function! delimitMate#QuoteDelim(char) "{{{
     let quotes = right_q > left_q + 1 ? 0 : left_q - right_q + 2
     let lefts = quotes - 1
     return repeat(a:char, quotes) . repeat(s:joinUndo() . "\<Left>", lefts)
-  elseif char_at == a:char
-    " Inside an empty pair, jump out
-    return a:char . "\<Del>"
   elseif a:char == '"' && index(split(&ft, '\.'), "vim") != -1 && getline('.') =~ '^\s*$'
     " If we are in a vim file and it looks like we're starting a comment, do
     " not add a closing char.
