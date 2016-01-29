@@ -10,3 +10,4 @@ tags
 test/build
 test/*.tap
 test/*.msgout
+*~
